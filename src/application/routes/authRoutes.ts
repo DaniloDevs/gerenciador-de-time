@@ -1,9 +1,9 @@
-import { prisma } from "@/connection/prisma";
-import { FastifyInstance } from "fastify";
-import bcrypt from "bcrypt";
 import { Athlete, Technician } from "@prisma/client";
-import { z } from "zod";
+import bcrypt from "bcrypt";
+import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { prisma } from "@/infrastructure/connection/prisma";
+import { registerTechnique, registerAthlete, login } from "./schemas/auth";
 
 
 export async function Authoutes(server: FastifyInstance) {
@@ -11,14 +11,7 @@ export async function Authoutes(server: FastifyInstance) {
      server.withTypeProvider<ZodTypeProvider>()
           .post('/register/technician',
                {
-                    schema: {
-                         body: z.object({
-                              name: z.string(),
-                              email: z.string(),
-                              password: z.string(),
-                              role: z.enum(["ATHLETE", "TECHNIQUE"]),
-                         })
-                    }
+                    schema: registerTechnique
                }
                , async (request, reply) => {
                     const { name, email, password, role } = request.body
@@ -47,16 +40,7 @@ export async function Authoutes(server: FastifyInstance) {
 
           .post('/register/Athlete',
                {
-                    schema: {
-                         body: z.object({
-                              name: z.string(),
-                              email: z.string(),
-                              password: z.string(),
-                              shirtNmber: z.number(),
-                              position: z.string(),
-                              role: z.enum(["ATHLETE", "TECHNIQUE"]),
-                         })
-                    }
+                    schema: registerAthlete
                },
                async (request, reply) => {
                     const { name, email, password, shirtNmber, position, role } = request.body
@@ -88,12 +72,7 @@ export async function Authoutes(server: FastifyInstance) {
 
           .post('/login',
                {
-                    schema: {
-                         body: z.object({
-                              email: z.string(),
-                              password: z.string(),
-                         })
-                    }
+                    schema: login
                }
                , async (request, reply) => {
                     const { email, password } = request.body

@@ -1,18 +1,14 @@
+import { prisma } from "@/infrastructure/connection/prisma";
+import { createSlug } from "@/infrastructure/utils/createSlug";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { prisma } from "@/connection/prisma";
-import { createSlug } from "@/utils/createSlug";
-import { z } from "zod";
+import { findUnique, findAllMenbers, update, create } from "./schemas/team";
 
 export async function TeamRoutes(server: FastifyInstance) {
      server.withTypeProvider<ZodTypeProvider>()
           .post("/teams/create",
                {
-                    schema: {
-                         body: z.object({
-                              name: z.string()
-                         })
-                    }
+                    schema: create
                }
                , async (request, reply) => {
                     const { token } = request.cookies as { token: string }
@@ -57,7 +53,7 @@ export async function TeamRoutes(server: FastifyInstance) {
                })
 
           .get("/teams", async (request, reply) => {
-             
+
                const teams = await prisma.team.findMany()
 
                return reply.status(200).send({
@@ -68,11 +64,7 @@ export async function TeamRoutes(server: FastifyInstance) {
 
           .get("/teams/:slug",
                {
-                    schema: {
-                         params: z.object({
-                              slug: z.string()
-                         })
-                    }
+                    schema: findUnique
                }
                , async (request, reply) => {
                     const { slug } = request.params
@@ -91,14 +83,10 @@ export async function TeamRoutes(server: FastifyInstance) {
 
           .get("/teams/:slug/members",
                {
-                    schema: {
-                         params: z.object({
-                              slug: z.string()
-                         })
-                    }
+                    schema: findAllMenbers
                }
                , async (request, reply) => {
-                    const { slug } = request.params 
+                    const { slug } = request.params
                     const team = await prisma.team.findUnique({ where: { slug } })
 
                     const members = await prisma.team.findUnique({
@@ -127,11 +115,7 @@ export async function TeamRoutes(server: FastifyInstance) {
 
           .put("/teams/:slug/update",
                {
-                    schema: {
-                         body: z.object({
-                              name: z.string()
-                         })
-                    }
+                    schema: update
                }
                , async (request, reply) => {
                     const { token } = request.cookies as { token: string }

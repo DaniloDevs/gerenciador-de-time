@@ -1,5 +1,5 @@
-import { errorHandler } from "@/errors/errorHandler";
-import { FastifyInstance, FastifyRequest } from "fastify";
+import { errorHandler } from "@/infrastructure/errors/errorHandler";
+import { FastifyInstance } from "fastify";
 import { Authoutes } from "./routes/authRoutes";
 import { TeamRoutes } from "./routes/teamRoutes";
 

@@ -1,4 +1,4 @@
-import { prisma } from "@/connection/prisma";
+import { prisma } from "@/infrastructure/connection/prisma";
 import { server } from "@/index";
 import fastify from "fastify";
 import { describe, expect, test } from "vitest";

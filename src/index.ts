@@ -1,8 +1,9 @@
 import fastifyCookie from "@fastify/cookie";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
-import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
-import { Routes } from "@/routes";
+import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod"
+import { Routes } from "./application/routes";
+
 
 
 export const server = fastify()
