@@ -21,8 +21,8 @@ export async function TeamRoutes(server: FastifyInstance) {
                          return reply.status(400).send({ Message: "Unable to find token" })
                     }
 
-                    if (server.jwt.verify(token)) {
-                         return reply.status(400).send({ Message: "The technician who is logged in does not exist" })
+                    if (!server.jwt.verify(token)) {
+                         return reply.status(400).send({ Message: "Invalid token" })
                     }
 
                     const { id, role } = server.jwt.decode(token) as { id: string, role: string }
@@ -57,16 +57,7 @@ export async function TeamRoutes(server: FastifyInstance) {
                })
 
           .get("/teams", async (request, reply) => {
-               const { token } = request.cookies as { token: string }
-
-               if (!token) {
-                    return reply.status(400).send({ Message: "Unable to find token" })
-               }
-
-               if (server.jwt.verify(token)) {
-                    return reply.status(400).send({ Message: "The technician who is logged in does not exist" })
-               }
-
+             
                const teams = await prisma.team.findMany()
 
                return reply.status(200).send({
@@ -84,16 +75,6 @@ export async function TeamRoutes(server: FastifyInstance) {
                     }
                }
                , async (request, reply) => {
-                    const { token } = request.cookies as { token: string }
-
-                    if (!token) {
-                         return reply.status(400).send({ Message: "Unable to find token" })
-                    }
-
-                    if (server.jwt.verify(token)) {
-                         return reply.status(400).send({ Message: "The technician who is logged in does not exist" })
-                    }
-
                     const { slug } = request.params
 
                     const team = await prisma.team.findUnique({ where: { slug } })
@@ -117,16 +98,6 @@ export async function TeamRoutes(server: FastifyInstance) {
                     }
                }
                , async (request, reply) => {
-                    const { token } = request.cookies as { token: string }
-
-                    if (!token) {
-                         return reply.status(400).send({ Message: "Unable to find token" })
-                    }
-
-                    if (server.jwt.verify(token)) {
-                         return reply.status(400).send({ Message: "The technician who is logged in does not exist" })
-                    }
-
                     const { slug } = request.params 
                     const team = await prisma.team.findUnique({ where: { slug } })
 
@@ -169,8 +140,8 @@ export async function TeamRoutes(server: FastifyInstance) {
                          return reply.status(400).send({ Message: "Unable to find token" })
                     }
 
-                    if (server.jwt.verify(token)) {
-                         return reply.status(400).send({ Message: "The technician who is logged in does not exist" })
+                    if (!server.jwt.verify(token)) {
+                         return reply.status(400).send({ Message: "Invalid token" })
                     }
 
                     const { id, role } = server.jwt.decode(token) as { id: string, role: string }
