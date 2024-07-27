@@ -12,7 +12,7 @@ export const findUnique =  {
      })
 }
 
-export const findAllMenbers =  {
+export const findAllAthlete =  {
      params: z.object({
           slug: z.string()
      })

@@ -7,7 +7,7 @@ interface ITeamController {
      create(request: FastifyRequest, reply: FastifyReply): Promise<void>
      findAll(request: FastifyRequest, reply: FastifyReply): Promise<void>
      findUnique(request: FastifyRequest, reply: FastifyReply): Promise<void>
-     findAllMembers(request: FastifyRequest, reply: FastifyReply): Promise<void>
+     findAllAthlete(request: FastifyRequest, reply: FastifyReply): Promise<void>
      update(request: FastifyRequest, reply: FastifyReply): Promise<void>
 }
 
@@ -79,11 +79,11 @@ export class TeamController implements ITeamController {
           })
      }
 
-     async findAllMembers(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+     async findAllAthlete(request: FastifyRequest, reply: FastifyReply): Promise<void> {
           const { slug } = request.params as { slug: string }
           const team = await prisma.team.findUnique({ where: { slug } })
 
-          const members = await prisma.team.findUnique({
+          const athlete = await prisma.team.findUnique({
                where: { slug },
                select: {
                     members: {
@@ -102,7 +102,7 @@ export class TeamController implements ITeamController {
 
           return reply.status(200).send({
                Message: `All athletes from team ${team.name} have been successfully listed`,
-               Menbers: members
+               Menbers: athlete
           })
 
      }

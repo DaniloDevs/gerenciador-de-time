@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { create, findAllMenbers, findUnique, update } from "./schemas/team";
+import { create, findAllAthlete, findUnique, update } from "./schemas/team";
 import { TeamController } from "../controller/teamController";
 
 export async function TeamRoutes(server: FastifyInstance) {
@@ -25,11 +25,11 @@ export async function TeamRoutes(server: FastifyInstance) {
                }
                , controller.findUnique.bind(controller))
 
-          .get("/teams/:slug/members",
+          .get("/teams/:slug/athlete",
                {
-                    schema: findAllMenbers
+                    schema: findAllAthlete
                }
-               , controller.findAllMembers.bind(controller))
+               , controller.findAllAthlete.bind(controller))
 
           .put("/teams/:slug/update",
                {

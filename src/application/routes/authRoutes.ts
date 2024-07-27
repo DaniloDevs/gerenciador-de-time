@@ -14,7 +14,7 @@ export async function Authoutes(server: FastifyInstance) {
                }
                , controller.registerTechnician.bind(controller))
 
-          .post('/register/Athlete',
+          .post('/register/athlete',
                {
                     schema: registerAthlete
                },
@@ -26,6 +26,10 @@ export async function Authoutes(server: FastifyInstance) {
                }
                , controller.login.bind(controller))
 
-          .post('/logout', controller.logout.bind(controller))
+          .post('/logout',
+               {
+                    schema: {}
+               }
+               , controller.logout.bind(controller))
 }
 

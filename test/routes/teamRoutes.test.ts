@@ -68,11 +68,11 @@ describe('Team Routes', async () => {
           expect(response.statusCode).toBe(200)
      })
 
-     test('GET /teams/:slug/members', async () => {
+     test('GET /teams/:slug/athlete', async () => {
           const slug = 'super-nova'
           const response = await server.inject({
                method: 'GET',
-               url: `/teams/${slug}/members`,
+               url: `/teams/${slug}/athlete`,
                headers: { cookie: token },
           })
 
