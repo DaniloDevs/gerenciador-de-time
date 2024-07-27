@@ -13,6 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// genero idade localicade slug
 model Technician {
   id       String @id @default(uuid())
   name     String
@@ -23,6 +24,7 @@ model Technician {
   role      Role
 }
 
+// slug geenro idade localicade
 model Athlete {
   id         String @id @default(uuid())
   name       String
@@ -36,6 +38,8 @@ model Athlete {
   teamId String?
 }
 
+// somente name unico
+// foundedAt, localizado 
 model Team {
   id       String   @id @default(uuid())
   name     String   @unique

@@ -152,7 +152,7 @@ export async function TeamRoutes(server: FastifyInstance) {
                     })
 
 
-                    return reply.status(201).send({
+                    return reply.status(200).send({
                          Message: `The ${team.name} team was successfully updated`,
                          team: team
                     })
