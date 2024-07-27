@@ -1,7 +1,7 @@
 import { prisma } from "@/infrastructure/connection/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { z } from "zod";
+import { findUnique } from "./schemas/athletes";
 
 export async function AthleteRoutes(server: FastifyInstance) {
      server.withTypeProvider<ZodTypeProvider>()
@@ -15,11 +15,7 @@ export async function AthleteRoutes(server: FastifyInstance) {
           })
           .get('/athletes/:id',
                {
-                    schema: {
-                         params: z.object({
-                              id: z.string().uuid()
-                         })
-                    }
+                    schema: findUnique
                }
                , async (request, reply) => {
                     const { id } = request.params
