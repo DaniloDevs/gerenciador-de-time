@@ -4,7 +4,6 @@ import fastify from "fastify";
 import { describe, expect, test } from "vitest";
 
 
-
 describe('Team Routes', async () => {
      server.listen({ port: 1011 })
 

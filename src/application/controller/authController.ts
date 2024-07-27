@@ -6,7 +6,6 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 interface IAtucController {
      registerTechnician(request: FastifyRequest, reply: FastifyReply): Promise<void>
-     registerAthlete(request: FastifyRequest, reply: FastifyReply): Promise<void>
      login(request: FastifyRequest, reply: FastifyReply): Promise<void>
      logout(request: FastifyRequest, reply: FastifyReply): Promise<void>
 }
