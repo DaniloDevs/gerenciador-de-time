@@ -4,10 +4,7 @@ import fastify from "fastify";
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod"
 import { Routes } from "./application/routes";
 
-
-
 export const server = fastify()
-
 
 try {
     server.register(Routes)
